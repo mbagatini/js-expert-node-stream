@@ -1,15 +1,18 @@
 export class Controller {
 	#view
 	#service
+	#worker
 
-	constructor({ view, service }) {
+	constructor({ view, service, worker }) {
 		this.#view = view
 		this.#service = service
+		this.#worker = this.#configureWorker(worker)
 
 		this.#view.configueOnBtnClick(this.onRecognitionInit.bind(this))
 	}
 
 	async init() {
+		console.log('init')
 	}
 
 	static async initialize(dependencies) {
@@ -26,5 +29,18 @@ export class Controller {
 
 	onRecognitionInit() {
 		this.log('Initializing detection...')
+	}
+
+	#configureWorker(worker) {
+		worker.onmessage = (message) => {
+			console.log(message)
+
+			if (message.data === 'ready') {
+				this.#view.enableButton()
+				return
+			}
+		}
+
+		return worker
 	}
 }
