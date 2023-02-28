@@ -32,13 +32,16 @@ export class Controller {
 	}
 
 	#configureWorker(worker) {
-		worker.onmessage = (message) => {
-			console.log(message)
+		const isReady = false
 
-			if (message.data === 'ready') {
+		worker.onmessage = ({ data }) => {
+			if (data === 'ready') {
 				this.#view.enableButton()
+				isReady = true
 				return
 			}
+
+			console.log(data.blinked)
 		}
 
 		return worker

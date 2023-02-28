@@ -13,4 +13,19 @@ export class Service {
 			{ maxFaces: 1 }
 		)
 	}
+
+	async hadBlinked(video) {
+		const predictions = await this.#estimateFaces(video)
+		console.lof(predictions)
+	}
+
+	// configuration for tenserflow face recognition
+	#estimateFaces(video) {
+		return this.#model.estimateFaces({
+			input: video,
+			returnTensors: false,
+			flipHorizontal: true,
+			predictIrises: true
+		})
+	}
 }

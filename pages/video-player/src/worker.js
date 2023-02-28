@@ -20,9 +20,10 @@ await service.loadModel()
 
 postMessage('ready')
 
-onmessage = ({ data }) => {
-	console.log(data)
-	postMessage(
-		{ response: 'ok', data }
-	)
+onmessage = async ({ data: video }) => {
+	const blinked = await service.hadBlinked(video)
+
+	if (!blinked) return;
+
+	postMessage({ blinked })
 }
