@@ -5,7 +5,6 @@ export class Camera {
 	}
 
 	static async init() {
-		console.log('hello friends')
 		if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
 			throw new Error('Browser API navigator.mediaDevices.getUserMedia not available')
 		}
