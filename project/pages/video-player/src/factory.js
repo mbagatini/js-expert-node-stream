@@ -19,6 +19,8 @@ async function getWorker() {
 	return workerMock
 }
 
+const worker = await getWorker()
+
 const camera = Camera.init()
 
 export const factory = {

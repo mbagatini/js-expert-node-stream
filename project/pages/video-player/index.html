@@ -11,10 +11,20 @@
       width: 95%;
       margin: 10px;
     }
+
+	.button-container {
+		display: flex;
+		gap: 1.2rem;
+		padding: 1.2rem;
+	}
   </style>
 </head>
 
 <body>
+	<div class="button-container">
+		<button type="button" id="initRecognition" disabled>Initialize blink recognition</button>
+		<output id="statusRecognition"></output>
+	</div>
   <video id="video" src="/assets/video.mp4" controls></video>
   <script type="module" src="./src/index.js"></script>
 </body>
