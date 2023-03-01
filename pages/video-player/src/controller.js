@@ -2,6 +2,7 @@ export class Controller {
 	#view
 	#camera
 	#worker
+	#counter
 
 	constructor({ view, camera, worker }) {
 		this.#view = view
@@ -24,11 +25,13 @@ export class Controller {
 	}
 
 	log(message) {
-		this.#view.log(`Message: ${message}`)
+		const blinkedTimes = ` - blinked ${this.#counter}`
+		this.#view.log(`${message}`.concat(this.#counter ? blinkedTimes : ""))
 	}
 
 	onRecognitionInit() {
 		this.log('Initializing detection...')
+		this.#counter = 0
 		this.loopFaceRegonition()
 	}
 
@@ -42,7 +45,7 @@ export class Controller {
 				return
 			}
 
-			console.log(data.blinked)
+			if (data.blinked) this.#counter++
 		}
 
 		return {
@@ -59,7 +62,8 @@ export class Controller {
 		const img = this.#view.getVideoFrame(video)
 
 		this.#worker.sendMessage(img)
+		this.log('Detecting eye blink...')
 
-		setTimeout(() => this.loopFaceRegonition, 100);
+		setTimeout(() => this.loopFaceRegonition(), 500);
 	}
 }

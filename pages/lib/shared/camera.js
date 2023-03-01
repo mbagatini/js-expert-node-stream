@@ -26,11 +26,11 @@ export class Camera {
 		const camera = new Camera();
 
 		camera.video.srcObject = stream
-		camera.video.width = 240
-		camera.video.height = 320
 
 		// add the element
-		document.body.append(camera.video)
+		// camera.video.width = 240
+		// camera.video.height = 320
+		// document.body.append(camera.video)
 
 		// wait for the camera to display
 		await new Promise((resolve) => {
