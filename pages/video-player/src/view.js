@@ -3,8 +3,10 @@ export class View {
 	#elemStatusRecognition
 	#canvasVideoFrame
 	#canvasContext
+	#videoElement
 
 	constructor() {
+		this.#videoElement = document.querySelector('#video')
 		this.#btnInitRecognition = document.querySelector('#initRecognition')
 		this.#elemStatusRecognition = document.querySelector('#statusRecognition')
 		this.#canvasVideoFrame = document.createElement('canvas')
@@ -32,5 +34,13 @@ export class View {
 
 		this.#canvasContext.drawImage(video, 0, 0, width, height)
 		return this.#canvasContext.getImageData(0, 0, width, height)
+	}
+
+	togglePlayVideo() {
+		if (this.#videoElement.paused) {
+			this.#videoElement.play()
+		} else {
+			this.#videoElement.pause()
+		}
 	}
 }

@@ -46,6 +46,7 @@ export class Controller {
 			}
 
 			if (data.blinked) this.#counter++
+			this.#view.togglePlayVideo()
 		}
 
 		return {
