@@ -1,11 +1,11 @@
 export class Controller {
 	#view
-	#service
+	#camera
 	#worker
 
-	constructor({ view, service, worker }) {
+	constructor({ view, camera, worker }) {
 		this.#view = view
-		this.#service = service
+		this.#camera = camera
 		this.#worker = this.#configureWorker(worker)
 
 		this.#view.configueOnBtnClick(this.onRecognitionInit.bind(this))
@@ -29,10 +29,11 @@ export class Controller {
 
 	onRecognitionInit() {
 		this.log('Initializing detection...')
+		this.loopFaceRegonition()
 	}
 
 	#configureWorker(worker) {
-		const isReady = false
+		let isReady = false
 
 		worker.onmessage = ({ data }) => {
 			if (data === 'ready') {
@@ -44,6 +45,21 @@ export class Controller {
 			console.log(data.blinked)
 		}
 
-		return worker
+		return {
+			sendMessage(message) {
+				if (!isReady) return
+
+				worker.postMessage(message)
+			}
+		}
+	}
+
+	loopFaceRegonition() {
+		const video = this.#camera.video
+		const img = this.#view.getVideoFrame(video)
+
+		this.#worker.sendMessage(img)
+
+		setTimeout(() => this.loopFaceRegonition, 100);
 	}
 }

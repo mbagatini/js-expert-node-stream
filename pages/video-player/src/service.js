@@ -16,7 +16,7 @@ export class Service {
 
 	async hadBlinked(video) {
 		const predictions = await this.#estimateFaces(video)
-		console.lof(predictions)
+		console.log({ predictions })
 	}
 
 	// configuration for tenserflow face recognition
