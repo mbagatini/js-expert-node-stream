@@ -28,16 +28,22 @@ export class Service {
 
 		for (const prediction of predictions) {
 			// Right eye parameters
-			const lowerRight = prediction.annotations.rightEyeUpper0;
-			const upperRight = prediction.annotations.rightEyeLower0;
-			const rightEAR = this.#getEAR(upperRight, lowerRight);
+			const lowerRight = prediction.annotations.rightEyeUpper0
+			const upperRight = prediction.annotations.rightEyeLower0
+			const rightEAR = this.#getEAR(upperRight, lowerRight)
 			// Left eye parameters
-			const lowerLeft = prediction.annotations.leftEyeUpper0;
-			const upperLeft = prediction.annotations.leftEyeLower0;
-			const leftEAR = this.#getEAR(upperLeft, lowerLeft);
+			const lowerLeft = prediction.annotations.leftEyeUpper0
+			const upperLeft = prediction.annotations.leftEyeLower0
+			const leftEAR = this.#getEAR(upperLeft, lowerLeft)
+
+			if (leftEAR <= EAR_THRESHOLD && rightEAR > EAR_THRESHOLD) {
+				console.log('- blinked left eye')
+			} else if (leftEAR > EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD) {
+				console.log('- blinked right eye')
+			}
 
 			// True if the eye is closed
-			const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD;
+			const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD
 
 			if (!shouldCheckBlink()) continue
 
