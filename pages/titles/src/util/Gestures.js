@@ -7,15 +7,16 @@ const ScrollUpGesture = new GestureDescription('scroll-up'); // 🖐
 // Hangloose
 // -----------------------------------------------------------------------------
   
-// thumb: half curled
-// accept no curl with a bit lower confidence
+// thumb and pinky not curled
 for(let finger of [Finger.Thumb, Finger.Pinky]) {
     HanglooseGesture.addCurl(finger, FingerCurl.NoCurl, 1.0);
+    HanglooseGesture.addCurl(finger, FingerCurl.HalfCurl, 0.5);
 }
 
+// all curved
 for(let finger of [Finger.Index, Finger.Middle, Finger.Ring]) {
-	HanglooseGesture.addCurl(finger, FingerCurl.HalfCurl, 1.0);
-    HanglooseGesture.addCurl(finger, FingerCurl.NoCurl, 0.5);
+	HanglooseGesture.addCurl(finger, FingerCurl.HalfCurl, 0.9);
+    HanglooseGesture.addCurl(finger, FingerCurl.FullCurl, 1.0);
 }
 
 // Scroll down
