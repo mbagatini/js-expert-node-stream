@@ -1,15 +1,15 @@
-import { knownGestures, gesturesStrings } from "../util/Gestures.js"
-
 export class HandGestureService {
 	#gestureEstimation
 	#handPoseDetection
 	#handsVersion
+	#gesturesStrings
 	#detector = null
 
-	constructor({ fingerpose, handPoseDetection, handsVersion }) {
+	constructor({ fingerpose, handPoseDetection, handsVersion, knownGestures, gesturesStrings }) {
 		this.#gestureEstimation = new fingerpose.GestureEstimator(knownGestures)
 		this.#handPoseDetection = handPoseDetection
 		this.#handsVersion = handsVersion
+		this.#gesturesStrings = gesturesStrings
 	}
 
 	async initializeDetector() {
@@ -64,7 +64,7 @@ export class HandGestureService {
 				return prev.score > cur.score ? prev : cur
 			})
 
-			console.log('detected', gesturesStrings[gesture.name])
+			console.log('detected', this.#gesturesStrings[gesture.name])
 
 			// search for the finger tip
 			const { x, y } = hand.keypoints.find(keypoint => keypoint.name === 'index_finger_tip')
