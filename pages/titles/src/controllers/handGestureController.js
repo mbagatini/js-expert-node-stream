@@ -30,6 +30,13 @@ export class HandGestureController {
 		try {
 			const hands = await this.#service.estimateHands(this.#camera.video)
 
+			// hands element
+			this.#view.clearCanvas()
+
+			if (hands?.length) {
+				this.#view.drawHands(hands)
+			}
+
 			// async interator
 			for await (const gesture of this.#service.detectGestures(hands)) {
 				const { event, x, y } = gesture
