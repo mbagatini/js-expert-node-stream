@@ -27,10 +27,4 @@ export class HandGestureService {
 
 		return this.#detector
 	}
-
-	async estimateHands(video) {
-		return this.#detector.estimateHands(video, {
-			flipHorizontal: true
-		})
-	}
 }
