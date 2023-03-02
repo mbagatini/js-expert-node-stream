@@ -1,8 +1,8 @@
-import { prepareBlinkChecker } from '../../lib/shared/shouldCheckBlink.js'
+import { shouldRunChecker } from '../../lib/shared/shouldRunChecker.js'
 
 const EAR_THRESHOLD = 0.27
 
-const { shouldCheckBlink } = prepareBlinkChecker({ timerDelay: 500 })
+const { shouldRun } = shouldRunChecker({ timerDelay: 500 })
 
 export class Service {
 	#model = null
@@ -45,7 +45,7 @@ export class Service {
 			// True if the eye is closed
 			const blinked = leftEAR <= EAR_THRESHOLD && rightEAR <= EAR_THRESHOLD
 
-			if (!shouldCheckBlink()) continue
+			if (!shouldRun()) continue
 
 			if (blinked) return true
 		}
