@@ -61,10 +61,16 @@ export class HandGestureService {
 
 			// keep the gesture which score is the most accurately predicted
 			const gesture = gestures.reduce((prev, cur) => {
-				return prev.score > cur.score? prev : cur
+				return prev.score > cur.score ? prev : cur
 			})
 
 			console.log('detected', gesturesStrings[gesture.name])
+
+			// search for the finger tip
+			const { x, y } = hand.keypoints.find(keypoint => keypoint.name === 'index_finger_tip')
+
+			// magic of async interator
+			yield { event: gesture.name, x, y }
 		}
 	}
 }
