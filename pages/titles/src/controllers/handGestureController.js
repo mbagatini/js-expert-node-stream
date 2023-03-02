@@ -10,6 +10,7 @@ export class HandGestureController {
 	}
 
 	async init() {
+		return this.#loopDetection()
 	}
 
 	static async initialize(dependencies) {
@@ -17,10 +18,12 @@ export class HandGestureController {
 		return controller.init()
 	}
 
-	async #estimateHands(video) {
-		return this.#detector.estimateHands(video, {
-			flipHorizontal: true
-		})
+	async #estimateHands() {
+		try {
+            const hands = await this.#service.estimateHands(this.#camera.video)
+        } catch (error) {
+            console.error(error)
+        }
 	}
 
 	async #loopDetection() {
