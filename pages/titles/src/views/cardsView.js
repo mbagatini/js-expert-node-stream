@@ -1,4 +1,3 @@
-
 export default class CardsView {
   #browseSearchList = document.getElementById('browseSearch')
   #inputSearch = document.getElementById('inputSearch')

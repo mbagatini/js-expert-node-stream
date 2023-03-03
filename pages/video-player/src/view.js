@@ -5,12 +5,14 @@ export class View {
 	#canvasContext
 	#videoElement
 
-	constructor() {
+	constructor({ videoUrl }) {
 		this.#videoElement = document.querySelector('#video')
 		this.#btnInitRecognition = document.querySelector('#initRecognition')
 		this.#elemStatusRecognition = document.querySelector('#statusRecognition')
 		this.#canvasVideoFrame = document.createElement('canvas')
 		this.#canvasContext = this.#canvasVideoFrame.getContext('2d', { willReadFrequently: true })
+	
+		this.#setVideoSource(videoUrl)
 	}
 
 	enableButton() {
@@ -42,5 +44,9 @@ export class View {
 		} else {
 			this.#videoElement.pause()
 		}
+	}
+
+	#setVideoSource(url) {
+		this.#videoElement.src = url
 	}
 }

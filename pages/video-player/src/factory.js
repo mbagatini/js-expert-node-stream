@@ -4,6 +4,8 @@ import { initWorkerMock } from './workerMock.js'
 import { Camera } from '../../lib/shared/camera.js'
 import { supportsWorkerType } from '../../lib/shared/supportsWorker.js'
 
+const [rootPath] = window.location.href.split('/pages/')
+
 async function getWorker() {
 	// check if it can use a new thread
 	if (supportsWorkerType()) {
@@ -25,7 +27,9 @@ const camera = await Camera.init()
 export const factory = {
 	async initalize() {
 		return Controller.initialize({
-			view: new View(),
+			view: new View({
+				videoUrl: `${rootPath}/assets/video.mp4`
+			}),
 			camera,
 			worker
 		})
