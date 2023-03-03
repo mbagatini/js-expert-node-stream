@@ -1,10 +1,13 @@
 export class HandGestureView {
 	#canvasHands
 	#canvasContext
+	#fingersLookup
 
-	constructor() {
+	constructor({ fingersLookup}) {
+		this.#fingersLookup = fingersLookup
 		this.#canvasHands = document.querySelector('#hands')
 		this.#canvasContext = this.#canvasHands.getContext('2d')
+
 		this.#canvasHands.width = globalThis.screen.availWidth
 		this.#canvasHands.height = globalThis.screen.availHeight
 	}
@@ -18,13 +21,16 @@ export class HandGestureView {
 			if (!keypoints) continue
 
 			// fingers
-			this.#canvasContext.fillStyle = 'orange'
+			this.#canvasContext.fillStyle = 'yellow'
 			this.#canvasContext.strokeStyle = 'white'
 			this.#canvasContext.lineWidth = 10
 			this.#canvasContext.lineJoin = 'round'
 
-			// joients
+			// joints
 			this.#drawJoints(keypoints)
+
+			// fingers
+			this.#drawFingersAndHoverElements(keypoints)
 		}
 	}
 
@@ -41,6 +47,28 @@ export class HandGestureView {
 			this.#canvasContext.fill()
 		}
 	}
+
+	#drawFingersAndHoverElements(keypoints) {
+		const fingers = Object.keys(this.#fingersLookup)
+
+		for (const finger of fingers) {
+		  const points = this.#fingersLookup[finger].map(
+			index => keypoints[index]
+		  )
+
+		  const region = new Path2D()
+
+		  const [{ x, y }] = points
+
+		  region.moveTo(x, y)
+
+		  for(const point of points) {
+			region.lineTo(point.x, point.y)
+		  }
+
+		  this.#canvasContext.stroke(region)
+		}
+	  }
 
 	loopDetection(frameRequestCallback) {
 		requestAnimationFrame(frameRequestCallback)
