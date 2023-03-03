@@ -1195,5 +1195,5 @@ a {
     position: fixed;
 
     /* fica à frente dos elementos */
-    z-index: 2;
+    z-index: 20;
 }
