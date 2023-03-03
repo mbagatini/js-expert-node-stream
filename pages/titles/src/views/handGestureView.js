@@ -3,7 +3,7 @@ export class HandGestureView {
 	#canvasContext
 	#fingersLookup
 
-	constructor({ fingersLookup}) {
+	constructor({ fingersLookup }) {
 		this.#fingersLookup = fingersLookup
 		this.#canvasHands = document.querySelector('#hands')
 		this.#canvasContext = this.#canvasHands.getContext('2d')
@@ -17,11 +17,11 @@ export class HandGestureView {
 	}
 
 	drawHands(hands) {
-		for (const { keypoints }  of hands) {
+		for (const { keypoints } of hands) {
 			if (!keypoints) continue
 
 			// fingers
-			this.#canvasContext.fillStyle = 'yellow'
+			this.#canvasContext.fillStyle = 'magenta'
 			this.#canvasContext.strokeStyle = 'white'
 			this.#canvasContext.lineWidth = 10
 			this.#canvasContext.lineJoin = 'round'
@@ -52,23 +52,23 @@ export class HandGestureView {
 		const fingers = Object.keys(this.#fingersLookup)
 
 		for (const finger of fingers) {
-		  const points = this.#fingersLookup[finger].map(
-			index => keypoints[index]
-		  )
+			const points = this.#fingersLookup[finger].map(
+				index => keypoints[index]
+			)
 
-		  const region = new Path2D()
+			const region = new Path2D()
 
-		  const [{ x, y }] = points
+			const [{ x, y }] = points
 
-		  region.moveTo(x, y)
+			region.moveTo(x, y)
 
-		  for(const point of points) {
-			region.lineTo(point.x, point.y)
-		  }
+			for (const point of points) {
+				region.lineTo(point.x, point.y)
+			}
 
-		  this.#canvasContext.stroke(region)
+			this.#canvasContext.stroke(region)
 		}
-	  }
+	}
 
 	loopDetection(frameRequestCallback) {
 		requestAnimationFrame(frameRequestCallback)
@@ -79,5 +79,25 @@ export class HandGestureView {
 			top,
 			behavior: 'smooth'
 		})
+	}
+
+	clickOnElement(x, y) {
+		const element = document.elementFromPoint(x, y)
+
+		if (!element) return
+
+		// print found element
+		// console.log({ element, x, y })
+
+		const rect = element.getBoundingClientRect()
+		const clickEvent = new MouseEvent('click', {
+			view: window,
+			bubbles: true,
+			cancelable: true,
+			clientX: rect.left + x,
+			clientY: rect.top + y
+		})
+
+		element.dispatchEvent(clickEvent)
 	}
 }
