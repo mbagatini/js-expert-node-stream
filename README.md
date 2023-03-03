@@ -37,7 +37,6 @@ Marque esse projeto com uma estrela 🌟
 - [x] - Aula 01 - Diferenciar piscada de olhos entre olho direito e esquerdo e atualizar log para mostrar qual olho que piscou.
 - [x] - Aula 02 - Reconhecer gestos de mãos individuais e printar no log
 - [x] - Aula 03 - Colocar o desenho das mãos na frente da modal
-- [x] - Aula 04 - A definir
 
 ### Links mostrados nos aulas:
 - Reuni todos os links em [referências](./referencias.md)
