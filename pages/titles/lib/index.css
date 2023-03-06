@@ -1197,3 +1197,10 @@ a {
     /* fica à frente dos elementos */
     z-index: 20;
 }
+
+.camera {
+	position: fixed;
+	z-index: 30;
+	bottom: 0;
+	right: 0;
+}

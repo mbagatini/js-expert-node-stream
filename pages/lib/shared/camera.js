@@ -2,6 +2,7 @@ export class Camera {
 	constructor() {
 		// Creates the element on DOM
 		this.video = document.createElement('video')
+		this.video.classList.add('camera')
 	}
 
 	static async init() {
@@ -28,9 +29,9 @@ export class Camera {
 		camera.video.srcObject = stream
 
 		// add the element
-		// camera.video.width = 240
-		// camera.video.height = 320
-		// document.body.append(camera.video)
+		camera.video.width = 240
+		camera.video.height = 320
+		document.body.append(camera.video)
 
 		// wait for the camera to display
 		await new Promise((resolve) => {

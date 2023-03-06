@@ -1,6 +1,6 @@
 import { shouldRunChecker } from '../../../lib/shared/shouldRunChecker.js'
 
-const { shouldRun: shouldCheckBlink } = shouldRunChecker({ timerDelay: 200 })
+const { shouldRun: shouldCheckScroll } = shouldRunChecker({ timerDelay: 200 })
 const { shouldRun: shouldCheckClick } = shouldRunChecker({ timerDelay: 300 })
 
 export class HandGestureController {
@@ -42,7 +42,7 @@ export class HandGestureController {
 			for await (const gesture of this.#service.detectGestures(hands)) {
 				const { event, x, y } = gesture
 
-				if (event.includes('scroll') && shouldCheckBlink()) {
+				if (event.includes('scroll') && shouldCheckScroll()) {
 					this.#scrollPage(event)
 					continue
 				}
